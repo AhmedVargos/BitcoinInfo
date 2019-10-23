@@ -17,6 +17,6 @@ data class ChartDetailsResponse(
 )
 
 data class Values(
-    val timestamp: Long,
-    val value: Double
+    @field:Json(name = "x")val timestamp: Float,
+    @field:Json(name = "y")val value: Float
 )

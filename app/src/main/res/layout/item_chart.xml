@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/chartTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/global_margin_16_dp"
+        tools:text="Chart title will be here"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/font_20_sp"/>
+
+    <TextView
+        android:id="@+id/chartSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Chart description"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/secondary_text"
+        android:layout_marginBottom="@dimen/global_margin_16_dp"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chartView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+</LinearLayout>

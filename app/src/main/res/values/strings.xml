@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BitcoinInfoApp</string>
+    <string name="bitcoin_price_text">Bitcoin</string>
+    <string name="prices_text">Prices</string>
+    <string name="retry_text">Retry</string>
+    <string name="charts_text">Charts:</string>
+
+    <string name="error_happened_text">An unexpected error has happened please retry!</string>
 </resources>
