@@ -14,7 +14,7 @@ import com.example.bitcoininfoapp.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private val homeViewModel: HomeViewModel by inject()
 
@@ -87,20 +87,29 @@ class MainActivity : AppCompatActivity() {
         homeViewModel.loadChartsInfo()
     }
 
+    /**
+     * Fills the charts list with [data]
+     */
     private fun fillChartsList(data: List<ChartDetailsResponse>?) {
         with(chartsList) {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = ChartsRecyclerAdapter(data ?: mutableListOf())
             isNestedScrollingEnabled = false
         }
     }
 
+    /**
+     * Fills the price views [data]
+     */
     private fun fillPriceInfoViews(data: BitcoinStatusResponse?) {
         data?.let {
             bitcoinPriceValue.text = "$${String.format("%,.2f", it.marketPrice, true)}"
         }
     }
 
+    /**
+     * Makes a toast to show the default error
+     */
     private fun showDefaultError(){
         Toast.makeText(this, R.string.error_happened_text, Toast.LENGTH_SHORT).show()
     }

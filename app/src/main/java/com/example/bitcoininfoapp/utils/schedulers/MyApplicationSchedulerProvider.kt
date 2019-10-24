@@ -1,16 +1,16 @@
-package com.example.bitcoininfoapp.data
+package com.example.bitcoininfoapp.utils.schedulers
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
 /**
- * Application providers
+ * Application providers.
  */
-class ApplicationSchedulerProvider : SchedulerProvider {
+class MyApplicationSchedulerProvider :
+    SchedulerProvider {
     override fun io() = Schedulers.io()
 
     override fun ui() = AndroidSchedulers.mainThread()
 
-    override fun computation() = Schedulers.computation()
 }

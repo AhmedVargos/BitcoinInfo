@@ -9,10 +9,17 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 class BitcoinServiceImpl : BitcoinService, KoinComponent {
-    override fun getBitcoinStatus(): Single<BitcoinStatusResponse> {
+
+    /**
+     * Makes an API call to get bitcoin information
+     */
+    override fun getBitcoinInformation(): Single<BitcoinStatusResponse> {
         return networkService.getStatus()
     }
 
+    /**
+     * Makes an API call to get the wanted chart with [chartName]
+     */
     override fun getBitcoinCharts(chartName: String): Single<ChartDetailsResponse> {
         return networkService.getChartInfo(chartName)
     }

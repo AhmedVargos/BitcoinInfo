@@ -5,7 +5,7 @@ import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import io.reactivex.Single
 
 interface BitcoinService {
-    fun getBitcoinStatus(): Single<BitcoinStatusResponse>
+    fun getBitcoinInformation(): Single<BitcoinStatusResponse>
     fun getBitcoinCharts(chartName: String): Single<ChartDetailsResponse>
 
 }

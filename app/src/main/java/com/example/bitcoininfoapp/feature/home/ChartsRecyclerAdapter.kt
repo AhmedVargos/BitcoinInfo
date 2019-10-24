@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bitcoininfoapp.R
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import com.example.bitcoininfoapp.utils.getDateStringWithFullMonthName
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -39,30 +40,47 @@ class ChartsRecyclerAdapter(
             with(itemView) {
                 chartTitle.text = chartDetailsResponse.name
                 chartSubtitle.text = chartDetailsResponse.description
-                val entries = chartDetailsResponse.values.map { valueItem ->
-                    Entry(
-                        valueItem.timestamp,
-                        valueItem.value
-                    )
-                }
-                val dataSet = LineDataSet(entries, "BTC")
-                dataSet.color = R.color.colorAccent
-                dataSet.axisDependency = YAxis.AxisDependency.RIGHT
-                dataSet.setDrawValues(false)
+                val dataSet = createChartLineDataSet(chartDetailsResponse)
+
                 chartView.data = LineData(dataSet)
-                val formatter = object : ValueFormatter() {
-                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                        return getDateStringWithFullMonthName(value.toLong())
-                    }
-                }
-                val xAxis = chartView.xAxis
-                xAxis.granularity = 1f
-                xAxis.valueFormatter = formatter
-                xAxis.position = XAxis.XAxisPosition.BOTTOM
+                chartStyling(chartView)
 
                 chartView.zoomIn()
                 chartView.invalidate()
             }
+        }
+
+        /**
+         * Creates the chart LineDataSet and
+         */
+        private fun createChartLineDataSet(chartDetailsResponse: ChartDetailsResponse): LineDataSet {
+            val entries = chartDetailsResponse.values.map { valueItem ->
+                Entry(
+                    valueItem.timestamp,
+                    valueItem.value
+                )
+            }
+            val dataSet = LineDataSet(entries, "BTC")
+            dataSet.color = R.color.colorAccent
+            dataSet.axisDependency = YAxis.AxisDependency.RIGHT
+            dataSet.setDrawValues(false)
+            return dataSet
+        }
+
+
+        /**
+         * Make the chart styling and format
+         */
+        private fun chartStyling(chartView: LineChart){
+            val formatter = object : ValueFormatter() {
+                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                    return value.toLong().getDateStringWithFullMonthName()
+                }
+            }
+            val xAxis = chartView.xAxis
+            xAxis.granularity = 1f
+            xAxis.valueFormatter = formatter
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
         }
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/light_grey"
         android:padding="@dimen/global_margin_16_dp"
-        tools:context=".feature.home.MainActivity">
+        tools:context=".feature.home.HomeActivity">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/infoCard"

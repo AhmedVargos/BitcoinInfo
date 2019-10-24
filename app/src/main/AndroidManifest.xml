@@ -14,7 +14,7 @@
         android:name=".MyApplication"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".feature.home.MainActivity">
+        <activity android:name=".feature.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

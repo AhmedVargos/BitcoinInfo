@@ -7,7 +7,7 @@ import com.example.bitcoininfoapp.data.DataManager
 import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import com.example.bitcoininfoapp.data.models.Status
-import com.example.bitcoininfoapp.data.models.UseCaseResponse
+import com.example.bitcoininfoapp.data.models.ResultResponse
 import io.reactivex.disposables.CompositeDisposable
 
 class HomeViewModel(
@@ -15,44 +15,44 @@ class HomeViewModel(
 ) : ViewModel() {
     private val disposableBag by lazy { CompositeDisposable() }
 
-    private val _priceInfo: MutableLiveData<UseCaseResponse<BitcoinStatusResponse>> =
+    private val _priceInfo: MutableLiveData<ResultResponse<BitcoinStatusResponse>> =
         MutableLiveData()
-    val priceInfoLiveData: LiveData<UseCaseResponse<BitcoinStatusResponse>>
+    val priceInfoLiveData: LiveData<ResultResponse<BitcoinStatusResponse>>
         get() = _priceInfo
 
-    private val _chartsInfo: MutableLiveData<UseCaseResponse<List<ChartDetailsResponse>>> =
+    private val _chartsInfo: MutableLiveData<ResultResponse<List<ChartDetailsResponse>>> =
         MutableLiveData()
-    val chartsInfoLiveData: LiveData<UseCaseResponse<List<ChartDetailsResponse>>>
+    val chartsInfoLiveData: LiveData<ResultResponse<List<ChartDetailsResponse>>>
         get() = _chartsInfo
 
     fun loadPriceInfo() {
         _priceInfo.value =
-            UseCaseResponse(responseStatus = Status.LOADING)
+            ResultResponse(responseStatus = Status.LOADING)
 
         disposableBag.add(
             dataManager.getBitcoinInfo()
                 .subscribe({ priceInfoResponse ->
                     _priceInfo.value =
-                        UseCaseResponse(responseStatus = Status.SUCCESS, data = priceInfoResponse)
+                        ResultResponse(responseStatus = Status.SUCCESS, data = priceInfoResponse)
                 }, { error ->
                     _priceInfo.value =
-                        UseCaseResponse(responseStatus = Status.FAILURE, errorData = error)
+                        ResultResponse(responseStatus = Status.FAILURE, errorData = error)
                 })
         )
     }
 
     fun loadChartsInfo() {
         _chartsInfo.value =
-            UseCaseResponse(responseStatus = Status.LOADING)
+            ResultResponse(responseStatus = Status.LOADING)
 
         disposableBag.add(
             dataManager.getChartInfo()
                 .subscribe({ priceInfoResponse ->
                     _chartsInfo.value =
-                        UseCaseResponse(responseStatus = Status.SUCCESS, data = priceInfoResponse)
+                        ResultResponse(responseStatus = Status.SUCCESS, data = priceInfoResponse)
                 }, { error ->
                     _chartsInfo.value =
-                        UseCaseResponse(responseStatus = Status.FAILURE, errorData = error)
+                        ResultResponse(responseStatus = Status.FAILURE, errorData = error)
                 })
         )
     }
