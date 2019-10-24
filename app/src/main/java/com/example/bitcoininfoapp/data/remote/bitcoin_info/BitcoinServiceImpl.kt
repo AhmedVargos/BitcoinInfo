@@ -2,13 +2,17 @@ package com.example.bitcoininfoapp.data.remote.bitcoin_info
 
 import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
+import com.example.bitcoininfoapp.utils.Constants
 import io.reactivex.Single
 import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.qualifier.named
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 class BitcoinServiceImpl : BitcoinService, KoinComponent {
+
+    private val networkService: BitcoinEndPoints by getKoin()
+        .createScope(Constants.API_CLIENT_SCOPE_ID, named(Constants.API_CLIENT_SCOPE)).inject()
 
     /**
      * Makes an API call to get bitcoin information
@@ -23,8 +27,6 @@ class BitcoinServiceImpl : BitcoinService, KoinComponent {
     override fun getBitcoinCharts(chartName: String): Single<ChartDetailsResponse> {
         return networkService.getChartInfo(chartName)
     }
-
-    private val networkService : BitcoinEndPoints by inject()
 
     interface BitcoinEndPoints {
         @GET("stats")

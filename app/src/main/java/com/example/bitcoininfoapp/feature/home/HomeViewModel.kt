@@ -46,7 +46,7 @@ class HomeViewModel(
             ResultResponse(responseStatus = Status.LOADING)
 
         disposableBag.add(
-            dataManager.getChartInfo()
+            dataManager.getChartsInfo()
                 .subscribe({ priceInfoResponse ->
                     _chartsInfo.value =
                         ResultResponse(responseStatus = Status.SUCCESS, data = priceInfoResponse)

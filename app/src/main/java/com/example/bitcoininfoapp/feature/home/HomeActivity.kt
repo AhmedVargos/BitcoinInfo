@@ -12,11 +12,11 @@ import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.gone
 import com.example.bitcoininfoapp.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.currentScope
 
 class HomeActivity : AppCompatActivity() {
 
-    private val homeViewModel: HomeViewModel by inject()
+    private val homeViewModel: HomeViewModel by currentScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +110,7 @@ class HomeActivity : AppCompatActivity() {
     /**
      * Makes a toast to show the default error
      */
-    private fun showDefaultError(){
+    private fun showDefaultError() {
         Toast.makeText(this, R.string.error_happened_text, Toast.LENGTH_SHORT).show()
     }
 }

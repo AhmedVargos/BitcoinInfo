@@ -6,5 +6,5 @@ import io.reactivex.Single
 
 interface DataManager {
     fun getBitcoinInfo(): Single<BitcoinStatusResponse>
-    fun getChartInfo(): Single<List<ChartDetailsResponse>>
+    fun getChartsInfo(): Single<List<ChartDetailsResponse>>
 }
