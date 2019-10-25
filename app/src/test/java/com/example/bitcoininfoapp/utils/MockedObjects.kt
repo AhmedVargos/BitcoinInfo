@@ -5,7 +5,8 @@ import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import com.example.bitcoininfoapp.data.models.Values
 
 fun makeBitcoinStatusResponse(): BitcoinStatusResponse {
-    return BitcoinStatusResponse(8000.0, 1571908761000)
+    return BitcoinStatusResponse(8000.0,
+        1571908761000, 415155156.0, 5415418888.0f)
 }
 
 

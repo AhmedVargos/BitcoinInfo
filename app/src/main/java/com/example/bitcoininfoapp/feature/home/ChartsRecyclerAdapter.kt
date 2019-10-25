@@ -9,6 +9,7 @@ import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import com.example.bitcoininfoapp.utils.getDateStringWithFullMonthName
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -62,7 +63,7 @@ class ChartsRecyclerAdapter(
             }
             val dataSet = LineDataSet(entries, "BTC")
             dataSet.color = R.color.colorAccent
-            dataSet.axisDependency = YAxis.AxisDependency.RIGHT
+            dataSet.axisDependency = YAxis.AxisDependency.LEFT
             dataSet.setDrawValues(false)
             return dataSet
         }
@@ -81,6 +82,11 @@ class ChartsRecyclerAdapter(
             xAxis.granularity = 1f
             xAxis.valueFormatter = formatter
             xAxis.position = XAxis.XAxisPosition.BOTTOM
+
+            val yAxis = chartView.axisRight
+            yAxis.isEnabled = false
+
+            chartView.description = null
         }
     }
 }

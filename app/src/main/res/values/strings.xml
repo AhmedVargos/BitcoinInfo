@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">BitcoinInfoApp</string>
-    <string name="bitcoin_price_text">Bitcoin</string>
-    <string name="prices_text">Prices</string>
+    <string name="app_name">BitcoinInfo</string>
+    <string name="bitcoin_details_text">Bitcoin Details</string>
+    <string name="prices_text">Market Price</string>
     <string name="retry_text">Retry</string>
     <string name="charts_text">Charts:</string>
 
     <string name="error_happened_text">An unexpected error has happened please retry!</string>
+    <string name="currency_info_text">Currency Info</string>
+    <string name="hash_rate_text">Hash Rate</string>
+    <string name="trade_volume_text">Trade Volume</string>
+
+    <string name="text_for_price">$%s</string>
+    <string name="text_for_hash_rate">%s GH/s</string>
 </resources>

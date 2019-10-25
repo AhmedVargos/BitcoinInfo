@@ -8,18 +8,47 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_grey"
-        android:padding="@dimen/global_margin_16_dp"
+        android:background="@color/grey_bg"
         tools:context=".feature.home.HomeActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/layout_toolbar" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <View
+            android:id="@+id/backgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/barrier2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/infoCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="@dimen/global_margin_16_dp"
             android:background="@color/mid_grey"
             app:cardCornerRadius="8dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/barrier2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -30,46 +59,81 @@
                     android:id="@+id/priceLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/prices_text"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_28_sp"
+                    android:text="@string/bitcoin_details_text"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/font_20_sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/bitcoinLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/global_margin_16_dp"
-                    android:text="@string/bitcoin_price_text"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_24_sp"
+                    android:id="@+id/bitcoinPriceLabel"
+                    style="@style/InformationTitleLabel"
+                    android:text="@string/prices_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/priceLabel" />
 
                 <TextView
                     android:id="@+id/bitcoinPriceValue"
+                    app:layout_constraintBottom_toBottomOf="@id/bitcoinPriceLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/labelsBarrier"
+                    app:layout_constraintTop_toTopOf="@id/bitcoinPriceLabel"
+                    tools:text="$7000.00"
+                    style="@style/informationValueLabel" />
+
+                <TextView
+                    android:id="@+id/bitcoinTradeVolumeLabel"
+                    style="@style/InformationTitleLabel"
+                    android:text="@string/trade_volume_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bitcoinPriceLabel" />
+
+                <TextView
+                    android:id="@+id/bitcoinVolumeValue"
+                    style="@style/informationValueLabel"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@id/bitcoinTradeVolumeLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/labelsBarrier"
+                    app:layout_constraintTop_toTopOf="@id/bitcoinTradeVolumeLabel"
+                    tools:text="70000000" />
+
+                <TextView
+                    android:id="@+id/bitcoinHashRateLabel"
+                    android:text="@string/hash_rate_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bitcoinTradeVolumeLabel"
+                    style="@style/InformationTitleLabel" />
+
+                <TextView
+                    android:id="@+id/bitcoinHashRateValue"
+                    style="@style/informationValueLabel"
+                    android:textColor="@color/mid_red"
+                    app:layout_constraintBottom_toBottomOf="@id/bitcoinHashRateLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/labelsBarrier"
+                    app:layout_constraintTop_toTopOf="@id/bitcoinHashRateLabel"
+                    tools:text="70000000" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/labelsBarrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/global_margin_16_dp"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_24_sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/bitcoinLabel"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toEndOf="@id/bitcoinLabel"
-                    app:layout_constraintTop_toTopOf="@id/bitcoinLabel"
-                    tools:text="$7000.00" />
+                    app:barrierDirection="end"
+                    app:constraint_referenced_ids="bitcoinPriceLabel,bitcoinTradeVolumeLabel,bitcoinHashRateLabel"
+                    tools:layout_editor_absoluteX="387dp"
+                    tools:layout_editor_absoluteY="16dp" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/priceDetailsGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:constraint_referenced_ids="bitcoinLabel,bitcoinPriceValue"
+                    app:constraint_referenced_ids="bitcoinPriceLabel,bitcoinTradeVolumeLabel,bitcoinPriceValue,bitcoinHashRateLabel"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="16dp"
                     tools:visibility="visible" />
 
                 <ProgressBar
@@ -77,9 +141,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/global_margin_16_dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/priceLabel"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:visibility="gone" />
 
                 <TextView
@@ -94,9 +159,10 @@
                     android:textSize="@dimen/font_20_sp"
                     android:textStyle="bold"
                     android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/priceLabel" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -104,13 +170,13 @@
             android:id="@+id/chartsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/global_margin_16_dp"
+            android:layout_marginStart="@dimen/global_margin_16_dp"
+            android:layout_marginTop="@dimen/margin_4_dp"
             android:text="@string/charts_text"
-            android:textColor="@color/secondary_text"
-            android:textSize="@dimen/font_28_sp"
-            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_22_sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/infoCard" />
+            app:layout_constraintTop_toTopOf="@id/backgroundView" />
 
 
         <ProgressBar
@@ -127,9 +193,25 @@
             android:id="@+id/chartsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chartsLabel" />
+            app:layout_constraintStart_toStartOf="@id/chartsLabel"
+            app:layout_constraintTop_toBottomOf="@id/chartsLabel"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_chart" />
 
+        <me.relex.circleindicator.CircleIndicator2
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingBottom="@dimen/margin_8_dp"
+            app:ci_drawable="@drawable/indicator_circle_selected"
+            app:ci_drawable_unselected="@drawable/indicator_circle_unselected"
+            app:ci_height="8dp"
+            app:ci_margin="2dp"
+            app:ci_width="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chartsList" />
 
         <TextView
             android:id="@+id/chartRetryBtn"
@@ -147,5 +229,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chartsLabel" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="400dp" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="guideline,indicator"
+            tools:layout_editor_absoluteX="411dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

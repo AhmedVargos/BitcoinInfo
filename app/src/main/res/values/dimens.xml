@@ -5,4 +5,8 @@
     <dimen name="global_margin_16_dp">16dp</dimen>
     <dimen name="font_20_sp">20sp</dimen>
     <dimen name="font_16_sp">16sp</dimen>
+    <dimen name="font_18_sp">18sp</dimen>
+    <dimen name="margin_4_dp">4dp</dimen>
+    <dimen name="font_22_sp">22sp</dimen>
+    <dimen name="margin_8_dp">8dp</dimen>
 </resources>

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.bitcoininfoapp.R
 import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
@@ -12,7 +13,9 @@ import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.gone
 import com.example.bitcoininfoapp.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_toolbar.toolbar
 import org.koin.androidx.scope.currentScope
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -21,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         initViews()
         initViewModels()
@@ -92,10 +96,15 @@ class HomeActivity : AppCompatActivity() {
      */
     private fun fillChartsList(data: List<ChartDetailsResponse>?) {
         with(chartsList) {
-            layoutManager = LinearLayoutManager(this@HomeActivity)
+            layoutManager =
+                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = ChartsRecyclerAdapter(data ?: mutableListOf())
             isNestedScrollingEnabled = false
         }
+
+        val pagerSnapHelper = PagerSnapHelper()
+        pagerSnapHelper.attachToRecyclerView(chartsList)
+        indicator.attachToRecyclerView(chartsList, pagerSnapHelper)
     }
 
     /**
@@ -103,7 +112,14 @@ class HomeActivity : AppCompatActivity() {
      */
     private fun fillPriceInfoViews(data: BitcoinStatusResponse?) {
         data?.let {
-            bitcoinPriceValue.text = "$${String.format("%,.2f", it.marketPrice, true)}"
+            bitcoinPriceValue.text =
+                getString(R.string.text_for_price, String.format("%,.2f", it.marketPrice, true))
+            bitcoinVolumeValue.text =
+                getString(R.string.text_for_price, String.format("%,.2f", it.tradeVolume, true))
+            bitcoinHashRateValue.text = getString(
+                R.string.text_for_hash_rate,
+                String.format("%,d", it.hashRate.toLong(), true)
+            )
         }
     }
 
