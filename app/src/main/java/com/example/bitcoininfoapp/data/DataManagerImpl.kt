@@ -25,8 +25,8 @@ class DataManagerImpl(
     override fun getChartsInfo() = Single.zip(
         remoteRepo.getBitcoinCharts(Constants.CHART_TYPE_MARKET_PRICE),
         remoteRepo.getBitcoinCharts(Constants.CHART_TYPE_TOTAL_BITCOIN),
-        BiFunction { t1: ChartDetailsResponse, t2: ChartDetailsResponse ->
-            listOf(t1, t2)
+        BiFunction { firstChartInfo: ChartDetailsResponse, secondChartInfo: ChartDetailsResponse ->
+            listOf(firstChartInfo, secondChartInfo)
         }
     ).with(schedulerProvider)
 

@@ -5,8 +5,8 @@ import com.example.bitcoininfoapp.utils.TestSchedulersProvider
 import com.example.bitcoininfoapp.utils.makeBitcoinStatusResponse
 import com.example.bitcoininfoapp.utils.makeSingleChartItem
 import com.example.bitcoininfoapp.utils.schedulers.SchedulerProvider
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test

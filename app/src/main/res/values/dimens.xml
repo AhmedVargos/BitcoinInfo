@@ -9,4 +9,7 @@
     <dimen name="margin_4_dp">4dp</dimen>
     <dimen name="font_22_sp">22sp</dimen>
     <dimen name="margin_8_dp">8dp</dimen>
+    <dimen name="margin_2_dp">2dp</dimen>
+    <dimen name="margin_400_dp">400dp</dimen>
+    <dimen name="chart_height">230dp</dimen>
 </resources>

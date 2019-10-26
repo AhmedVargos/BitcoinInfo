@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.bitcoininfoapp.data.DataManager
 import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
-import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.data.models.ResultResponse
+import com.example.bitcoininfoapp.data.models.Status
 import io.reactivex.disposables.CompositeDisposable
 
 class HomeViewModel(
@@ -17,13 +17,17 @@ class HomeViewModel(
 
     private val _priceInfo: MutableLiveData<ResultResponse<BitcoinStatusResponse>> =
         MutableLiveData()
-    val priceInfoLiveData: LiveData<ResultResponse<BitcoinStatusResponse>>
-        get() = _priceInfo
 
     private val _chartsInfo: MutableLiveData<ResultResponse<List<ChartDetailsResponse>>> =
         MutableLiveData()
-    val chartsInfoLiveData: LiveData<ResultResponse<List<ChartDetailsResponse>>>
-        get() = _chartsInfo
+
+    fun getPriceInfoLiveData(): LiveData<ResultResponse<BitcoinStatusResponse>> {
+        return _priceInfo
+    }
+
+    fun getChartsInfoLiveData(): LiveData<ResultResponse<List<ChartDetailsResponse>>> {
+        return _chartsInfo
+    }
 
     fun loadPriceInfo() {
         _priceInfo.value =

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/currency_info_text"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_18_sp"
+        android:textSize="@dimen/font_20_sp"
         android:gravity="center" />
 
 </androidx.appcompat.widget.Toolbar>

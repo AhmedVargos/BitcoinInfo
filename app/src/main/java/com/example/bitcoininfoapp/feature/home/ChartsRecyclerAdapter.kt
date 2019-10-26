@@ -1,5 +1,6 @@
 package com.example.bitcoininfoapp.feature.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,6 @@ import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
 import com.example.bitcoininfoapp.utils.getDateStringWithFullMonthName
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.item_chart.view.*
+import kotlin.math.log
 
 
 class ChartsRecyclerAdapter(

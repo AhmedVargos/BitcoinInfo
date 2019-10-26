@@ -2,11 +2,12 @@ package com.example.bitcoininfoapp.feature.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.bitcoininfoapp.data.DataManager
-import com.example.bitcoininfoapp.data.models.*
+import com.example.bitcoininfoapp.data.models.ResultResponse
+import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.makeBitcoinStatusResponse
 import com.example.bitcoininfoapp.utils.makeChartsResponse
 import com.jraska.livedata.test
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -37,20 +38,21 @@ class HomeViewModelTest : AutoCloseKoinTest() {
             }
         }
 
-        viewModel { HomeViewModel(get () ) }
+        viewModel { HomeViewModel(get()) }
     }
 
     @Before
-    fun setup(){
+    fun setup() {
         startKoin {
             modules(testModules)
         }
+
     }
 
     @Test
-    fun `loadPriceInfo - with valid response - should emit the success status to the stream`(){
+    fun `loadPriceInfo - with valid response - should emit the success status to the stream`() {
         //Arrange
-        val testObserver =  homeViewModel.priceInfoLiveData.test()
+        val testObserver = homeViewModel.getPriceInfoLiveData().test()
         //Act
         homeViewModel.loadPriceInfo()
         //Assert
@@ -59,7 +61,7 @@ class HomeViewModelTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun `loadPriceInfo - with failure - should emit the failure status to stream`(){
+    fun `loadPriceInfo - with failure - should emit the failure status to stream`() {
         //Arrange
         val throwable = Throwable("", null)
         declareMock<DataManager> {
@@ -68,33 +70,41 @@ class HomeViewModelTest : AutoCloseKoinTest() {
             }.whenever(this).getBitcoinInfo()
         }
 
-        val testObserver = homeViewModel.priceInfoLiveData.test()
+        val testObserver = homeViewModel.getPriceInfoLiveData().test()
 
         //Act
         homeViewModel.loadPriceInfo()
 
         //Assert
         testObserver.assertHistorySize(2)
-        testObserver.assertValue(ResultResponse(responseStatus = Status.FAILURE,
-            errorData = throwable))
+        testObserver.assertValue(
+            ResultResponse(
+                responseStatus = Status.FAILURE,
+                errorData = throwable
+            )
+        )
     }
 
     @Test
-    fun `loadChartsInfo - with valid response of charts - should emit the success status `(){
+    fun `loadChartsInfo - with valid response of charts - should emit the success status `() {
         //Arrange
-        val testObserver = homeViewModel.chartsInfoLiveData.test()
+        val testObserver = homeViewModel.getChartsInfoLiveData().test()
 
         //Act
         homeViewModel.loadChartsInfo()
 
         //Assert
         testObserver.assertHistorySize(2)
-        testObserver.assertValue(ResultResponse(responseStatus = Status.SUCCESS,
-            data = makeChartsResponse()))
+        testObserver.assertValue(
+            ResultResponse(
+                responseStatus = Status.SUCCESS,
+                data = makeChartsResponse()
+            )
+        )
     }
 
     @Test
-    fun `loadChartInfo - with failure - should emit the failure status`(){
+    fun `loadChartInfo - with failure - should emit the failure status`() {
         //Arrange
         val throwable = Throwable("", null)
         declareMock<DataManager> {
@@ -103,15 +113,19 @@ class HomeViewModelTest : AutoCloseKoinTest() {
             }.whenever(this).getChartsInfo()
         }
 
-        val testObserver = homeViewModel.chartsInfoLiveData.test()
+        val testObserver = homeViewModel.getChartsInfoLiveData().test()
 
         //Act
         homeViewModel.loadChartsInfo()
 
         //Assert
         testObserver.assertHistorySize(2)
-        testObserver.assertValue(ResultResponse(responseStatus = Status.FAILURE,
-            errorData = throwable))
+        testObserver.assertValue(
+            ResultResponse(
+                responseStatus = Status.FAILURE,
+                errorData = throwable
+            )
+        )
     }
 
 }

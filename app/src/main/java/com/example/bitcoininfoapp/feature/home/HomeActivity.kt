@@ -14,12 +14,12 @@ import com.example.bitcoininfoapp.utils.gone
 import com.example.bitcoininfoapp.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.toolbar
-import org.koin.androidx.scope.currentScope
+import org.koin.android.ext.android.inject
 
 
 class HomeActivity : AppCompatActivity() {
 
-    private val homeViewModel: HomeViewModel by currentScope.inject()
+    private val homeViewModel: HomeViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +41,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Bind with [homeViewModel] and handle the response state
+     */
     private fun initViewModels() {
-        homeViewModel.priceInfoLiveData.observe(this, Observer { responseUseCase ->
+        homeViewModel.getPriceInfoLiveData().observe(this, Observer { responseUseCase ->
             when (responseUseCase.responseStatus) {
                 Status.LOADING -> {
                     priceDetailsGroup.gone()
@@ -64,24 +67,23 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        homeViewModel.chartsInfoLiveData.observe(this, Observer { responseUseCase ->
+        homeViewModel.getChartsInfoLiveData().observe(this, Observer { responseUseCase ->
             when (responseUseCase.responseStatus) {
                 Status.LOADING -> {
                     chartRetryBtn.gone()
-                    chartRetryBtn.gone()
+                    chartsGroup.gone()
                     chartsProgress.visible()
                 }
                 Status.SUCCESS -> {
-                    chartRetryBtn.visible()
                     chartRetryBtn.gone()
                     chartsProgress.gone()
-
+                    chartsGroup.visible()
                     fillChartsList(responseUseCase.data)
                 }
                 Status.FAILURE -> {
-                    chartRetryBtn.gone()
                     chartRetryBtn.visible()
                     chartsProgress.gone()
+                    chartsGroup.gone()
                     showDefaultError()
                 }
             }

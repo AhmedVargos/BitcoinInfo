@@ -6,7 +6,6 @@ import com.example.bitcoininfoapp.data.DataManagerImpl
 import com.example.bitcoininfoapp.data.remote.RemoteRepo
 import com.example.bitcoininfoapp.data.remote.RemoteRepository
 import com.example.bitcoininfoapp.data.remote.bitcoin_info.BitcoinServiceImpl
-import com.example.bitcoininfoapp.feature.home.HomeActivity
 import com.example.bitcoininfoapp.feature.home.HomeViewModel
 import com.example.bitcoininfoapp.utils.Constants
 import com.example.bitcoininfoapp.utils.schedulers.MyApplicationSchedulerProvider
@@ -15,7 +14,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
-import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -26,8 +24,8 @@ val networkModules = module {
     single { createRetrofitInstance(get()) }
     // Tells Koin how to create an singleton instance of OkHttpClient
     single { createHttpClient() }
-
-    scope(named(Constants.API_CLIENT_SCOPE)){
+    // Creates a scope for providing the network API end points
+    scope(named(Constants.API_CLIENT_SCOPE)) {
         // Tells Koin how to create an singleton instance of BitcoinEndPoints
         scoped {
             get<Retrofit>().create(BitcoinServiceImpl.BitcoinEndPoints::class.java)
@@ -42,16 +40,14 @@ val bitcoinAppModules = module {
     single<SchedulerProvider> { MyApplicationSchedulerProvider() }
     // Tells Koin how to create an instance of DataManager
     single<DataManager> { DataManagerImpl(get(), get()) }
-
-    scope(named<HomeActivity>()) {
-        // Specific viewModel pattern to tell Koin how to build HomeViewModel
-        viewModel {
-            HomeViewModel(get())
-        }
+    // Tells koin the available view models to provide
+    viewModel {
+        HomeViewModel(get())
     }
 
 }
 
+// All the live modules to provide for the app
 val liveModules = listOf(bitcoinAppModules, networkModules)
 
 private fun createRetrofitInstance(okHttpClient: OkHttpClient): Retrofit? {

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,12 +41,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="@dimen/margin_4_dp"
+            android:layout_marginEnd="@dimen/margin_4_dp"
             android:layout_marginBottom="@dimen/global_margin_16_dp"
             android:background="@color/mid_grey"
-            app:cardCornerRadius="8dp"
-
+            app:cardCornerRadius="@dimen/margin_8_dp"
+            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/barrier2">
@@ -56,7 +57,7 @@
                 android:padding="@dimen/global_margin_16_dp">
 
                 <TextView
-                    android:id="@+id/priceLabel"
+                    android:id="@+id/bitcoinDetailsLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/bitcoin_details_text"
@@ -72,16 +73,16 @@
                     style="@style/InformationTitleLabel"
                     android:text="@string/prices_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/priceLabel" />
+                    app:layout_constraintTop_toBottomOf="@id/bitcoinDetailsLabel" />
 
                 <TextView
                     android:id="@+id/bitcoinPriceValue"
+                    style="@style/informationValueLabel"
                     app:layout_constraintBottom_toBottomOf="@id/bitcoinPriceLabel"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/labelsBarrier"
                     app:layout_constraintTop_toTopOf="@id/bitcoinPriceLabel"
-                    tools:text="$7000.00"
-                    style="@style/informationValueLabel" />
+                    tools:text="$7000.00" />
 
                 <TextView
                     android:id="@+id/bitcoinTradeVolumeLabel"
@@ -102,10 +103,10 @@
 
                 <TextView
                     android:id="@+id/bitcoinHashRateLabel"
+                    style="@style/InformationTitleLabel"
                     android:text="@string/hash_rate_text"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/bitcoinTradeVolumeLabel"
-                    style="@style/InformationTitleLabel" />
+                    app:layout_constraintTop_toBottomOf="@id/bitcoinTradeVolumeLabel" />
 
                 <TextView
                     android:id="@+id/bitcoinHashRateValue"
@@ -144,7 +145,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bitcoinDetailsLabel"
                     tools:visibility="gone" />
 
                 <TextView
@@ -153,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/global_margin_16_dp"
                     android:drawableEnd="@drawable/ic_action_retry"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="@dimen/margin_2_dp"
                     android:text="@string/retry_text"
                     android:textColor="@color/mid_red"
                     android:textSize="@dimen/font_20_sp"
@@ -162,7 +163,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/bitcoinDetailsLabel" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -187,12 +188,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chartsLabel"
+            app:layout_constraintBottom_toBottomOf="@id/backgroundView"
             tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chartsList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4_dp"
             app:layout_constraintStart_toStartOf="@id/chartsLabel"
             app:layout_constraintTop_toBottomOf="@id/chartsLabel"
             tools:itemCount="1"
@@ -202,13 +205,13 @@
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/margin_4_dp"
             android:paddingBottom="@dimen/margin_8_dp"
             app:ci_drawable="@drawable/indicator_circle_selected"
             app:ci_drawable_unselected="@drawable/indicator_circle_unselected"
-            app:ci_height="8dp"
-            app:ci_margin="2dp"
-            app:ci_width="8dp"
+            app:ci_height="@dimen/margin_8_dp"
+            app:ci_margin="@dimen/margin_2_dp"
+            app:ci_width="@dimen/margin_8_dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chartsList" />
@@ -219,7 +222,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/global_margin_16_dp"
             android:drawableEnd="@drawable/ic_action_retry"
-            android:drawablePadding="2dp"
+            android:drawablePadding="@dimen/margin_2_dp"
             android:text="@string/retry_text"
             android:textColor="@color/mid_red"
             android:textSize="@dimen/font_20_sp"
@@ -227,14 +230,15 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chartsLabel" />
+            app:layout_constraintTop_toBottomOf="@id/chartsLabel"
+            app:layout_constraintBottom_toBottomOf="@id/backgroundView"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="400dp" />
+            app:layout_constraintGuide_begin="@dimen/margin_400_dp" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier2"
@@ -243,5 +247,13 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="guideline,indicator"
             tools:layout_editor_absoluteX="411dp" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/chartsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="chartsList,indicator"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
