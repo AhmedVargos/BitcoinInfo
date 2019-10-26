@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.bitcoininfoapp.R
 import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
 import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
+import com.example.bitcoininfoapp.data.models.ResultResponse
 import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.gone
 import com.example.bitcoininfoapp.utils.visible
@@ -45,52 +46,55 @@ class HomeActivity : AppCompatActivity() {
      * Bind with [homeViewModel] and handle the response state
      */
     private fun initViewModels() {
-        homeViewModel.getPriceInfoLiveData().observe(this, Observer { responseUseCase ->
-            when (responseUseCase.responseStatus) {
-                Status.LOADING -> {
-                    priceDetailsGroup.gone()
-                    priceRetryBtn.gone()
-                    priceProgress.visible()
-                }
-                Status.SUCCESS -> {
-                    priceDetailsGroup.visible()
-                    priceRetryBtn.gone()
-                    priceProgress.gone()
-                    fillPriceInfoViews(responseUseCase.data)
-                }
-                Status.FAILURE -> {
-                    priceDetailsGroup.gone()
-                    priceRetryBtn.visible()
-                    priceProgress.gone()
-                    showDefaultError()
-                }
-            }
-        })
-
-        homeViewModel.getChartsInfoLiveData().observe(this, Observer { responseUseCase ->
-            when (responseUseCase.responseStatus) {
-                Status.LOADING -> {
-                    chartRetryBtn.gone()
-                    chartsGroup.gone()
-                    chartsProgress.visible()
-                }
-                Status.SUCCESS -> {
-                    chartRetryBtn.gone()
-                    chartsProgress.gone()
-                    chartsGroup.visible()
-                    fillChartsList(responseUseCase.data)
-                }
-                Status.FAILURE -> {
-                    chartRetryBtn.visible()
-                    chartsProgress.gone()
-                    chartsGroup.gone()
-                    showDefaultError()
-                }
-            }
-        })
+        homeViewModel.getPriceInfoLiveData().observe(this, Observer (this::priceInformationStateHandler))
+        homeViewModel.getChartsInfoLiveData().observe(this, Observer (this::chartResponseStateHandler))
 
         homeViewModel.loadPriceInfo()
         homeViewModel.loadChartsInfo()
+    }
+
+    private fun priceInformationStateHandler(responseUseCase: ResultResponse<BitcoinStatusResponse>) {
+        when (responseUseCase.responseStatus) {
+            Status.LOADING -> {
+                priceDetailsGroup.gone()
+                priceRetryBtn.gone()
+                priceProgress.visible()
+            }
+            Status.SUCCESS -> {
+                priceDetailsGroup.visible()
+                priceRetryBtn.gone()
+                priceProgress.gone()
+                fillPriceInfoViews(responseUseCase.data)
+            }
+            Status.FAILURE -> {
+                priceDetailsGroup.gone()
+                priceRetryBtn.visible()
+                priceProgress.gone()
+                showDefaultError()
+            }
+        }
+    }
+
+    private fun chartResponseStateHandler(responseUseCase: ResultResponse<List<ChartDetailsResponse>>) {
+        when (responseUseCase.responseStatus) {
+            Status.LOADING -> {
+                chartRetryBtn.gone()
+                chartsGroup.gone()
+                chartsProgress.visible()
+            }
+            Status.SUCCESS -> {
+                chartRetryBtn.gone()
+                chartsProgress.gone()
+                chartsGroup.visible()
+                fillChartsList(responseUseCase.data)
+            }
+            Status.FAILURE -> {
+                chartRetryBtn.visible()
+                chartsProgress.gone()
+                chartsGroup.gone()
+                showDefaultError()
+            }
+        }
     }
 
     /**
