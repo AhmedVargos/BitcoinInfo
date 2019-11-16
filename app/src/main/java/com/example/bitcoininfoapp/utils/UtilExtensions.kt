@@ -3,6 +3,7 @@ package com.example.bitcoininfoapp.utils
 import android.text.format.DateFormat
 import android.view.View
 import com.example.bitcoininfoapp.utils.schedulers.SchedulerProvider
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.*
 
@@ -31,6 +32,9 @@ fun View.visible() {
 fun <T> Single<T>.with(schedulerProvider: SchedulerProvider): Single<T> =
     this.observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
 
+
+fun <T> Flowable<T>.with(schedulerProvider: SchedulerProvider): Flowable<T> =
+    this.observeOn(schedulerProvider.ui()).subscribeOn(schedulerProvider.io())
 
 /**
  * Extension method to generate the date of a timestamp if the format of "d MMM"

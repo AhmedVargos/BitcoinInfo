@@ -9,8 +9,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.bitcoininfoapp.R
-import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
-import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
+import com.example.bitcoininfoapp.data.local.db.entities.BitcoinStatusResponse
+import com.example.bitcoininfoapp.data.local.db.entities.ChartDetailsResponse
 import com.example.bitcoininfoapp.data.models.ResultResponse
 import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.makeBitcoinStatusResponse
@@ -105,7 +105,10 @@ class HomeActivityTest : KoinTest {
         Mockito.doAnswer {
             val priceTestLiveData = MutableLiveData<ResultResponse<BitcoinStatusResponse>>()
             priceTestLiveData.value =
-                ResultResponse(responseStatus = Status.SUCCESS, data = makeBitcoinStatusResponse())
+                ResultResponse(
+                    responseStatus = Status.SUCCESS,
+                    data = makeBitcoinStatusResponse()
+                )
 
             priceTestLiveData
         }.`when`(homeViewModel).getPriceInfoLiveData()
@@ -114,7 +117,10 @@ class HomeActivityTest : KoinTest {
         Mockito.doAnswer {
             val chartsTestLiveData = MutableLiveData<ResultResponse<List<ChartDetailsResponse>>>()
             chartsTestLiveData.value =
-                ResultResponse(responseStatus = Status.SUCCESS, data = makeChartsResponse())
+                ResultResponse(
+                    responseStatus = Status.SUCCESS,
+                    data = makeChartsResponse()
+                )
 
             chartsTestLiveData
         }.`when`(homeViewModel).getChartsInfoLiveData()
@@ -218,7 +224,10 @@ class HomeActivityTest : KoinTest {
             chartDetailsCounter++
             if (chartDetailsCounter % 2 == 0) {
                 chartsTestLiveData.value =
-                    ResultResponse(responseStatus = Status.SUCCESS, data = makeChartsResponse())
+                    ResultResponse(
+                        responseStatus = Status.SUCCESS,
+                        data = makeChartsResponse()
+                    )
             }
             null
         }.`when`(homeViewModel).loadChartsInfo()

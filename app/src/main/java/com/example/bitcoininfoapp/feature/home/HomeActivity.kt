@@ -7,8 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.bitcoininfoapp.R
-import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
-import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
+import com.example.bitcoininfoapp.data.local.db.entities.BitcoinStatusResponse
+import com.example.bitcoininfoapp.data.local.db.entities.ChartDetailsResponse
 import com.example.bitcoininfoapp.data.models.ResultResponse
 import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.gone

@@ -1,7 +1,7 @@
 package com.example.bitcoininfoapp.data.remote.bitcoin_info
 
-import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
-import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
+import com.example.bitcoininfoapp.data.local.db.entities.BitcoinStatusResponse
+import com.example.bitcoininfoapp.data.local.db.entities.ChartDetailsResponse
 import com.example.bitcoininfoapp.utils.Constants
 import io.reactivex.Single
 import org.koin.core.KoinComponent

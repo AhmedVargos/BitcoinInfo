@@ -1,8 +1,8 @@
 package com.example.bitcoininfoapp.utils
 
-import com.example.bitcoininfoapp.data.models.BitcoinStatusResponse
-import com.example.bitcoininfoapp.data.models.ChartDetailsResponse
-import com.example.bitcoininfoapp.data.models.Values
+import com.example.bitcoininfoapp.data.local.db.entities.BitcoinStatusResponse
+import com.example.bitcoininfoapp.data.local.db.entities.ChartDetailsResponse
+import com.example.bitcoininfoapp.data.local.db.entities.Values
 
 fun makeBitcoinStatusResponse(): BitcoinStatusResponse {
     return BitcoinStatusResponse(8000.0,

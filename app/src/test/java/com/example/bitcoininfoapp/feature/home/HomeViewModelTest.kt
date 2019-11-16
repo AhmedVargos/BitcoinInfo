@@ -1,13 +1,14 @@
 package com.example.bitcoininfoapp.feature.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.bitcoininfoapp.data.DataManager
+import com.example.bitcoininfoapp.data.Repository
 import com.example.bitcoininfoapp.data.models.ResultResponse
 import com.example.bitcoininfoapp.data.models.Status
 import com.example.bitcoininfoapp.utils.makeBitcoinStatusResponse
 import com.example.bitcoininfoapp.utils.makeChartsResponse
 import com.jraska.livedata.test
 import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.Flowable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -27,13 +28,13 @@ class HomeViewModelTest : AutoCloseKoinTest() {
     private val homeViewModel by inject<HomeViewModel>()
     private val testModules = module {
         single {
-            declareMock<DataManager> {
+            declareMock<Repository> {
                 Mockito.doAnswer {
-                    Single.just(makeBitcoinStatusResponse())
+                    Flowable.just(makeBitcoinStatusResponse())
                 }.whenever(this).getBitcoinInfo()
 
                 Mockito.doAnswer {
-                    Single.just(makeChartsResponse())
+                    Flowable.just(makeChartsResponse())
                 }.whenever(this).getChartsInfo()
             }
         }
@@ -57,16 +58,21 @@ class HomeViewModelTest : AutoCloseKoinTest() {
         homeViewModel.loadPriceInfo()
         //Assert
         testObserver.assertHistorySize(2)
-        testObserver.assertValue(ResultResponse(Status.SUCCESS, data = makeBitcoinStatusResponse()))
+        testObserver.assertValue(
+            ResultResponse(
+                Status.SUCCESS,
+                data = makeBitcoinStatusResponse()
+            )
+        )
     }
 
     @Test
     fun `loadPriceInfo - with failure - should emit the failure status to stream`() {
         //Arrange
         val throwable = Throwable("", null)
-        declareMock<DataManager> {
+        declareMock<Repository> {
             Mockito.doAnswer {
-                Single.error<Throwable>(throwable)
+                Flowable.error<Throwable>(throwable)
             }.whenever(this).getBitcoinInfo()
         }
 
@@ -107,9 +113,9 @@ class HomeViewModelTest : AutoCloseKoinTest() {
     fun `loadChartInfo - with failure - should emit the failure status`() {
         //Arrange
         val throwable = Throwable("", null)
-        declareMock<DataManager> {
+        declareMock<Repository> {
             Mockito.doAnswer {
-                Single.error<Throwable>(throwable)
+                Flowable.error<Throwable>(throwable)
             }.whenever(this).getChartsInfo()
         }
 
